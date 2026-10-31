@@ -13,7 +13,8 @@
     "db:clean": "node src/clean.js",
     "clean:analytics": "node src/clear-analytics.js",
     "set-admin": "node src/create-admin.js",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "test": "node --test \"src/**/__tests__/*.test.js\""
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -25,8 +26,11 @@
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.4.296",
     "prisma": "^5.22.0",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
