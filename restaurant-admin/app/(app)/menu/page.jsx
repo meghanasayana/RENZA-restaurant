@@ -19,6 +19,9 @@ import {
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
 import { cn } from '@/lib/utils';
+import MenuImportDialog from '@/components/MenuImportDialog';
+import DishDescriptionsPanel from '@/components/DishDescriptionsPanel';
+import MenuAssistantPanel from '@/components/MenuAssistantPanel';
 
 const FILTERS = ['All', 'Available', 'Sold Out', 'Combos', 'Specials', 'Seasonal'];
 
@@ -490,6 +493,13 @@ export default function MenuPage() {
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
+
+      {/* AI menu tools: import a menu, write descriptions, change by typing. */}
+      <div className="space-y-3">
+        <MenuImportDialog onImported={fetchItems} />
+        <DishDescriptionsPanel onChanged={fetchItems} />
+        <MenuAssistantPanel onChanged={fetchItems} />
+      </div>
       {/* ── HEADER & TOOLBAR ── */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>

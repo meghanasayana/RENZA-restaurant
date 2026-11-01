@@ -7,8 +7,12 @@ Two features, added to `RenzaTech/RENZA-restaurant`:
    and on confirmation writes them to the database.
 2. **Dish descriptions.** One button writes a one-line description for every
    dish that has none.
+3. **Menu assistant.** One box the admin types into. It answers questions
+   about the menu - "what is under 250", "which dishes are sold out" - and
+   carries out changes: price, rename, sold out, move, add, delete. A change
+   is always previewed and confirmed before anything is written.
 
-52 files. Built and tested inside a clone of this repo — 241 unit tests pass,
+66 files. Built and tested inside a clone of this repo — 290 unit tests pass,
 and a 100-dish menu was run end to end against a stand-in database to confirm
 what lands in each column.
 
@@ -20,31 +24,18 @@ what lands in each column.
 tar -xzf renza-ai-port.tar.gz      # from the repo root
 cd backend
 npm install
-npm test                           # expect 241 passing
+npm test                           # expect 290 passing
 ```
 
 `npm install` adds three packages: `pdfjs-dist`, `tesseract.js`, `pdf-parse`.
 
-## Two manual steps
+## One manual step
 
-**1. Mount the admin components.** In
-`restaurant-admin/app/(app)/menu/page.jsx`, add the imports:
+The three admin panels are already placed on
+`restaurant-admin/app/(app)/menu/page.jsx` in this branch, so there is
+nothing to wire up. The only thing left is the API key.
 
-```js
-import MenuImportDialog from '@/components/MenuImportDialog';
-import DishDescriptionsPanel from '@/components/DishDescriptionsPanel';
-```
-
-and place them inside the page, above the dish list:
-
-```jsx
-<MenuImportDialog onImported={fetchItems} />
-<DishDescriptionsPanel onChanged={fetchItems} />
-```
-
-`fetchItems` already exists in that component.
-
-**2. Set one environment variable — in two places.**
+**Set one environment variable — in two places.**
 
 ```
 DESCRIPTION_API_KEY=<the Groq key sent separately>
@@ -59,9 +50,9 @@ DESCRIPTION_API_KEY=<the Groq key sent separately>
   then **redeploy** — an environment variable added after a deploy is not
   picked up until the next one.
 
-Without it, descriptions fall back to a local Ollama model, which is not
-present on a server — so descriptions simply will not work. Menu import does
-not need it and works without any key at all.
+Without it, descriptions and the menu assistant fall back to a local Ollama
+model, which is not present on a server — so both will stop working. Menu
+import does not need it and works without any key at all.
 
 Optional overrides, all with sensible defaults:
 
